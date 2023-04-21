@@ -19,7 +19,15 @@ public class World {
      * the benefits of polymorphism.
      */
     public static void everyFlyableObjectFly() {
-        objects.stream().filter(obj -> obj instanceof Flyable).forEach(obj -> ((Flyable) obj).fly());
+        for (Object obj : objects) {
+            if (obj instanceof Butterfly) {
+                ((Butterfly) obj).fly();
+            } else if (obj instanceof Plane) {
+                ((Plane) obj).fly();
+            } else if (obj instanceof Bird) {
+                ((Bird) obj).fly();
+            }
+        }
     }
 
     /**
@@ -28,7 +36,15 @@ public class World {
      * the benefits of polymorphism.
      */
     public static void everySoundMakerMakeSound() {
-        objects.stream().filter(obj -> obj instanceof SoundMaker).forEach(obj -> ((SoundMaker) obj).makeSound());
+        for (Object obj : objects) {
+            if (obj instanceof Cat) {
+                ((Cat) obj).makeSound();
+            } else if (obj instanceof Car) {
+                ((Car) obj).makeSound();
+            } else if (obj instanceof Bird) {
+                ((Bird) obj).makeSound();
+            }
+        }
     }
 
     /**
@@ -37,7 +53,17 @@ public class World {
      * the benefits of polymorphism.
      */
     public static void everyAnimalBreath() {
-        objects.stream().filter(obj -> obj instanceof Animal).forEach(obj -> ((Animal) obj).breath());
+        for (Object obj : objects) {
+            if (obj instanceof Cat) {
+                ((Cat) obj).breath();
+            } else if (obj instanceof Bird) {
+                ((Bird) obj).breath();
+            } else if (obj instanceof Fish) {
+                ((Fish) obj).breath();
+            } else if (obj instanceof Butterfly) {
+                ((Butterfly) obj).breath();
+            }
+        }
     }
 }
 
@@ -53,24 +79,15 @@ interface SoundMaker {
     void makeSound();
 }
 
-abstract class Pet implements Animal{
-    private final String name;
+class Pet {}
 
-    public Pet(String name) {
-        this.name = name;
-    }
-    public String getName() {
-        return name;
-    }
-}
-
-class Car implements SoundMaker{
+class Car {
     public void makeSound() {
         System.out.println("BEEP BEEP");
     }
 }
 
-class Bird implements Flyable, SoundMaker, Animal{
+class Bird {
     public void breath() {
         System.out.println("Bird is breathing");
     }
@@ -84,7 +101,7 @@ class Bird implements Flyable, SoundMaker, Animal{
     }
 }
 
-class Butterfly implements Flyable, Animal{
+class Butterfly {
     public void breath() {
         System.out.println("Butterfly is breathing");
     }
@@ -94,13 +111,15 @@ class Butterfly implements Flyable, Animal{
     }
 }
 
-class Cat extends Pet implements SoundMaker{
+class Cat {
+    private final String name;
+
     public Cat(String name) {
-        super(name);
+        this.name = name;
     }
 
     public void breath() {
-        System.out.println("Cat " + this.getName() + " is breathing");
+        System.out.println("Cat " + name + " is breathing");
     }
 
     public void makeSound() {
@@ -108,16 +127,19 @@ class Cat extends Pet implements SoundMaker{
     }
 }
 
-class Fish extends Pet{
+class Fish {
+    private final String name;
+
     public Fish(String name) {
-        super(name);
+        this.name = name;
     }
+
     public void breath() {
-        System.out.println("Fish " + this.getName() + " is breathing");
+        System.out.println("Fish " + name + " is breathing");
     }
 }
 
-class Plane implements Flyable{
+class Plane {
     public void fly() {
         System.out.println("Plane is flying");
     }
